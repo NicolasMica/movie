@@ -52,12 +52,78 @@ const state = {
         },
     ]
 }
+
 const mutations = {
+    /**
+     * Stores a new movie
+     * @param state - Store state
+     * @param movie - Movie object
+     * @returns {number}
+     */
+    STORE: (state, movie) => state.movies.push(movie),
+
+    /**
+     * Updates a given movie
+     * @param state - Store state
+     * @param movie - Movie object
+     */
+    UPDATE (state, movie) {
+        let index = state.movies.findIndex(item => item.id === movie.id)
+        state.movies[index] = movie
+    },
+
+    /**
+     * Destroy a given movie
+     * @param state - Store state
+     * @param movie - Movie object
+     * @returns {T[]}
+     */
+    DESTROY: (state, movie) => state.movies = state.movies.filter(item => item.id !== movie.id)
 }
+
 const actions = {
+    /**
+     * Stores the given movie
+     * @param store
+     * @param movie - Movie object
+     */
+    store (store, movie) {
+        store.commit('STORE', movie)
+    },
+
+    /**
+     * Update the given movie
+     * @param store
+     * @param movie - Movie object
+     */
+    update (store, movie) {
+        store.commit('UPDATE', movie)
+    },
+
+    /**
+     * Deletes the given movie
+     * @param store
+     * @param movie - Movie object
+     */
+    destroy (store, movie) {
+        store.commit('DESTROY', movie)
+    }
 }
+
 const getters = {
+    /**
+     * Returns the movies state prop
+     * @param state - Store state
+     * @returns {*[]}
+     */
+    movies: state => state.movies
 }
+
 const store = new Vuex.Store({
+    strict: (process.env.NODE_ENV !== 'production'),
+    state,
+    mutations,
+    actions,
+    getters
 })
 export default store
