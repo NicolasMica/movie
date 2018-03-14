@@ -36,6 +36,14 @@
 
 @tailwind components;
 
+.brand-logo {
+    @apply .uppercase .py-2 .px-4 .border-4 .rounded-lg .text-lg .font-semibold;
+}
+
+.image {
+    @apply .block .max-w-full .max-h-full;
+}
+
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.
