@@ -13,6 +13,11 @@
  */
 @tailwind preflight;
 
+* {
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
 /**
  * Here you would add any of your custom component classes; stuff that you'd
  * want loaded *before* the utilities so that the utilities could still
@@ -28,6 +33,8 @@
  * @import "components/buttons";
  * @import "components/forms";
  */
+
+@tailwind components;
 
 /**
  * This injects all of Tailwind's utility classes, generated based on your
