@@ -40,8 +40,30 @@
     @apply .uppercase .py-2 .px-4 .border-4 .rounded-lg .text-lg .font-semibold;
 }
 
+.bg-brand-dark-to-brand-primary {
+    background-image: radial-gradient(
+        ellipse at bottom left,
+        config('colors.brand-primary-darker'),
+        config('colors.brand-primary-darkest'),
+        config('colors.brand-dark')
+    );
+}
+
+.bg-brand-dark-to-brand-secondary {
+    background-image: radial-gradient(
+        ellipse at bottom left,
+        config('colors.brand-secondary-darker'),
+        config('colors.brand-secondary-darkest'),
+        config('colors.brand-dark')
+    );
+}
+
 .image {
     @apply .block .max-w-full .max-h-full;
+}
+
+a {
+    @apply .no-underline;
 }
 
 /**
