@@ -56,9 +56,17 @@ let colors = {
     'white-60': 'rgba(255, 255, 255, .60)',
     'white-80': 'rgba(255, 255, 255, .80)',
 
-    'brand-dark': '#081c24',
     'brand-primary': '#00d573',
+    'brand-primary-dark': '#00a57f',
+    'brand-primary-darker': '#007574',
+    'brand-primary-darkest': '#004653',
+
     'brand-secondary': '#2dd4f7',
+    'brand-secondary-dark': '#27a1be',
+    'brand-secondary-darker': '#1f7088',
+    'brand-secondary-darkest': '#154454',
+
+    'brand-dark': '#081c24',
     'brand-muted': '#f4f4f4',
 
     'black': '#22292f',
@@ -209,6 +217,7 @@ module.exports = {
 
     fonts: {
         'sans': [
+            'Source Sans Pro',
             'system-ui',
             'BlinkMacSystemFont',
             '-apple-system',
@@ -882,7 +891,7 @@ module.exports = {
         pointerEvents: ['responsive'],
         position: ['responsive'],
         resize: ['responsive'],
-        shadows: ['responsive'],
+        shadows: ['responsive', 'hover'],
         svgFill: [],
         svgStroke: [],
         textAlign: ['responsive'],
