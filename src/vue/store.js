@@ -55,6 +55,19 @@ const state = {
 
 const mutations = {
     /**
+     * Fetches the state from the localStorage
+     * @param state - Store state
+     */
+    INIT (state) {
+        let store = window.localStorage.getItem('store')
+        if (store) {
+            this.replaceState(
+                JSON.parse(store)
+            )
+        }
+    },
+
+    /**
      * Stores a new movie
      * @param state - Store state
      * @param movie - Movie object
@@ -126,4 +139,12 @@ const store = new Vuex.Store({
     actions,
     getters
 })
+
+/**
+ * Sync localStorage /w Vuex store
+ */
+store.subscribe((mutation, state) => {
+    localStorage.setItem('store', JSON.stringify(state))
+})
+
 export default store
