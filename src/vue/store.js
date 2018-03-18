@@ -83,10 +83,7 @@ const mutations = {
      * @param state - Store state
      * @param movie - Movie object
      */
-    UPDATE (state, movie) {
-        let index = state.movies.findIndex(item => item.id === movie.id)
-        state.movies[index] = movie
-    },
+    UPDATE: (state, movie) => state.movies = state.movies.map(item => item.id === movie.id ? movie : item),
 
     /**
      * Destroy a given movie
