@@ -72,10 +72,10 @@
                 <p class="text-grey-darker text-sm font-light">Choisissez la note en cliquant sur l'une des étoiles</p>
                 <review v-model="stars" class="mb-4"/>
                 <div class="flex justify-end">
-                    <button class="px-4 py-2 mr-4 rounded bg-grey-lightest text-grey-darker hover:bg-grey-lighter active:bg-grey-light" @click="closeReview">
+                    <button class="button is-secondary mr-4" @click="closeReview">
                         Annuler
                     </button>
-                    <button class="px-4 py-2 rounded bg-green hover:bg-green-dark active:bg-green-darker text-white-80" @click="submitReview">
+                    <button class="button is-success" @click="submitReview">
                         <span class="mr-2">
                             <i class="fas fa-check"></i>
                         </span>
@@ -96,6 +96,7 @@
 
     export default {
         components: { Modal, Review },
+        props: ['id'],
         data () {
             return {
                 progress: null,
@@ -109,9 +110,9 @@
              * Updates the review progress circle
              */
             reviews (value) {
-                console.log("Watcher !!!")
-                this.progress.animate(this.reviews / 5)
-                this.progress.setText(this.reviews + '/5')
+                if (this.progress === null) return
+                this.progress.animate(value / 5)
+                this.progress.setText(value + '/5')
             }
         },
         computed: {
@@ -122,7 +123,7 @@
              * @returns {movie} - Movie object
              */
             movie () {
-                return this.movies.find(movie => movie.id == this.$route.params.id)
+                return this.movies.find(movie => movie.id == this.id)
             },
 
             /**
@@ -138,7 +139,7 @@
              * @returns {number}
              */
             reviews () {
-                if (this.movie.reviews.length === 0) return 0
+                if (this.movie === undefined || this.movie.reviews.length === 0) return 0
                 let sum = this.movie.reviews.reduce((a, b) => a + b, 0)
 
                 return Math.round(sum / this.movie.reviews.length)
@@ -153,9 +154,7 @@
              */
             submitDestroy (event = null) {
                 this.destroy(this.movie)
-                    .then(
-                        () => this.$router.push({ name: 'index' })
-                    )
+                this.$router.push({ name: 'index' })
             },
 
             /**

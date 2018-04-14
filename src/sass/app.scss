@@ -66,6 +66,50 @@ a {
     @apply .no-underline;
 }
 
+.input {
+    @apply .p-2 .border .shadow-inner .min-h-10;
+}
+
+.button {
+    @apply .px-4 .py-2 .rounded;
+
+    &.is-secondary {
+        @apply .bg-grey-lightest .text-grey-darker;
+
+        &:hover {
+            @apply .bg-grey-lighter;
+        }
+
+        &:active, &.is-active {
+            @apply .bg-grey-light;
+        }
+    }
+
+    &.is-success, &.is-green {
+        @apply .bg-green .text-white-80;
+
+        &:hover {
+            @apply .bg-green-dark .text-white;
+        }
+
+        &:active, &.is-active {
+            @apply .bg-green-darker;
+        }
+    }
+
+    &.is-info, &.is-blue {
+        @apply .bg-blue .text-white-80;
+
+        &:hover {
+            @apply .bg-blue-dark .text-white;
+        }
+
+        &:active, &.is-active {
+            @apply .bg-blue-darker;
+        }
+    }
+}
+
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.

@@ -9,5 +9,8 @@ const app = new Vue({
     components: { App },
     template: "<App/>",
     router,
-    store
+    store,
+    created () {
+        this.$store.dispatch('get')
+    }
 })
