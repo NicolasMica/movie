@@ -96,7 +96,7 @@
                         <div class="flex flex-col -my-2">
                             <div class="block py-2">
                                 <label class="block p-2">Associer aux données existantes</label>
-                                <div class="relative block">
+                                <div class="relative z-0 block">
                                     <span class="absolute pin-l pin-y text-grey-dark p-2 pointer-events-none">
                                         <i class="fas fa-search"></i>
                                     </span>

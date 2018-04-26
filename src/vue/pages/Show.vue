@@ -15,7 +15,7 @@
                         </h1>
                         <div class="mb-4 flex">
                             <!-- REVIEW -->
-                            <div ref="progress" class="h-14 w-14 mr-4"></div>
+                            <div ref="progress" class="relative z-0 h-14 w-14 mr-4"></div>
                             <!-- EDIT -->
                             <router-link tag="button" :to="{ name: 'edit', params: { id: movie.id } }" class="h-14 w-14 inline-block rounded-full border border-white hover:border-brand-secondary text-white hover:text-brand-secondary mr-4">
                                 <i class="far fa-edit"></i>

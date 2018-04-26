@@ -13,7 +13,7 @@
                        v-model="query">
             </label>
             <!-- RESULTS -->
-            <div class="absolute pin-x" :class="{ hidden: !isSearching }">
+            <div class="absolute pin-x z-20" :class="{ hidden: !isSearching }">
                 <div class="p-4 w-full bg-white border-b border-l border-r border-grey shadow">
                     <ul class="list-reset">
                         <li v-for="movie in items" :key="movie.id" class="p-4 hover:bg-grey-lighter cursor-pointer" @click.prevent="routeTo(movie.id)">
