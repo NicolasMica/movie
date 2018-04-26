@@ -1,5 +1,6 @@
 let mix = require('laravel-mix')
 require('laravel-mix-tailwind')
+require('laravel-mix-purgecss')
 
 /*
  |--------------------------------------------------------------------------
@@ -20,6 +21,12 @@ mix.js('src/vue/main.js', 'dist/app.js')
 
 if (mix.inProduction()) {
     mix.version()
+        .purgeCss({
+            globs: [
+                path.join(__dirname, 'dist/index.html'),
+                path.join(__dirname, 'src/vue/**.*')
+            ]
+        })
 } else {
     mix.sourceMaps()
 }
