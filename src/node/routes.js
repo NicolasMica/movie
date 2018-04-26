@@ -54,7 +54,7 @@ const state = {
         },
     ]
 }
-
+let increment = 4
 api.route('/movies')
     .get((req, res) => {
         res.json(state.movies)
@@ -63,7 +63,7 @@ api.route('/movies')
         let movie = {
             reviews: [],
             ...req.body,
-            id: state.movies.length + 1 }
+            id: increment++ }
         // image:
         state.movies.push(movie)
 
