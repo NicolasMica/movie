@@ -1,7 +1,5 @@
 .idea/
-dist/app.css
-dist/app.js
+dist/**
+!dist/index.html
 .DS_Store
 node_modules/
-hot
-mix-manifest.json
