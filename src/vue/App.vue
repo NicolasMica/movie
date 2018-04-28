@@ -86,8 +86,6 @@
     </div>
 </template>
 
-<style lang="scss" src="../sass/app.scss"></style>
-
 <script>
     import Vuex from 'vuex'
     import Search from './components/Search.vue'
