@@ -1,7 +1,9 @@
 const express = require('express')
 const multer  = require('multer')
-const upload = multer({ dest: 'dist/uploads/' }).single('file')
 const api = express.Router({})
+const upload = multer({ dest: 'dist/uploads/' }).single('file')
+
+// Faking default dataset
 const state = {
     movies: [
         {
@@ -54,11 +56,16 @@ const state = {
         },
     ]
 }
+
+// Faking autoincrement
 let increment = 4
+
 api.route('/movies')
+    // Index action
     .get((req, res) => {
         res.json(state.movies)
     })
+    // Store action
     .post((req, res) => {
         let movie = {
             reviews: [],
@@ -80,9 +87,11 @@ api.param('id', (req, res, next, id) => {
 })
 
 api.route('/movies/:id')
+    // Show action
     .get((req, res) => {
         res.json(req.movie)
     })
+    // Update action
     .put((req, res) => {
         let movie = { ...req.body }
         state.movies = state.movies.map(item => {
@@ -96,6 +105,7 @@ api.route('/movies/:id')
 
         res.json(movie)
     })
+    // Destroy action
     .delete((req, res) => {
         let movie = { ...req.movie }
         state.movies = state.movies.filter(item => item.id !== movie.id)
