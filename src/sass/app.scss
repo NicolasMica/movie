@@ -71,7 +71,7 @@ a {
 }
 
 .button {
-    @apply .px-4 .py-2 .rounded;
+    @apply .px-4 .py-2 .rounded .font-semibold;
 
     &.is-secondary {
         @apply .bg-grey-lightest .text-grey-darker;

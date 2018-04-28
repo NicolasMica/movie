@@ -11,7 +11,7 @@
                     <div class="p-4 w-full md:w-1/2 lg:w-1/2 flex flex-col justify-between">
                         <h1 class="mb-4">
                             <span class="text-4xl font-semibold">{{ movie.name }}</span>
-                            <span class="text-3xl font-light text-white-40">({{ year }})</span>
+                            <span class="font-normal text-3xl text-white-40">({{ year }})</span>
                         </h1>
                         <div class="mb-4 flex">
                             <!-- REVIEW -->
@@ -31,16 +31,16 @@
                         </div>
                         <div class="mb-4">
                             <h3 class="font-normal text-xl mb-2">Synopsis</h3>
-                            <p class="font-light text-white-80">{{ movie.synopsis }}</p>
+                            <p class="text-white-80">{{ movie.synopsis }}</p>
                         </div>
                         <div class="flex">
                             <div>
                                 <h3 class="font-normal text-lg mb-1">Réalisateur</h3>
-                                <p class="font-light text-white-80">{{ movie.director.fullname }}</p>
+                                <p class="text-white-80">{{ movie.director.fullname }}</p>
                             </div>
                             <div class="ml-8">
                                 <h3 class="font-normal text-lg mb-1">{{ movie.categories.length > 1 ? 'Genres' : 'Genre'}}</h3>
-                                <p class="font-light text-white-80">{{ movie.categories.join(', ') }}</p>
+                                <p class="text-white-80">{{ movie.categories.join(', ') }}</p>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
         <modal :dismissable="true" @close="closeReview" v-show="reviewModal">
             <div class="p-6 rounded bg-white">
                 <p class="mb-4 text-lg tracking-wide text-semi-bold uppercase text-grey-dark">Notation</p>
-                <p class="text-grey-darker text-sm font-light">Choisissez la note en cliquant sur l'une des étoiles</p>
+                <p class="text-grey-darker text-sm">Choisissez la note en cliquant sur l'une des étoiles</p>
                 <review v-model="stars" class="mb-4"/>
                 <div class="flex justify-end">
                     <button class="button is-secondary mr-4" @click="closeReview">

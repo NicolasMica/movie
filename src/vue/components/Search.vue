@@ -8,6 +8,7 @@
                     </span>
                 <input type="search"
                        name="search"
+                       autocomplete="off"
                        placeholder="Rechercher un film, une série, un artiste"
                        class="appearance-none p-4 pl-8 w-full text-lg text-grey-darkest"
                        v-model="query">

@@ -33,11 +33,11 @@
         <!-- CONTENT -->
         <router-view/>
         <!-- FOOTER -->
-        <section class="font-light bg-brand-dark-to-brand-secondary mt-auto lg:py-8">
+        <section class="bg-brand-dark-to-brand-secondary mt-auto lg:py-8">
             <div class="container mx-auto p-4 md:p-8">
                 <!-- FOOTER NAV -->
                 <div class="flex flex-wrap justify-center -m-4 text-center sm:text-left">
-                    <div class="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 font-light">
+                    <div class="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/5">
                         <p class="uppercase font-semibold text-lg text-white md:mb-1">Les Fondamentaux</p>
                         <ul class="list-reset leading-tight">
                             <li><a class="text-white-80 hover:text-white">À propos</a></li>
