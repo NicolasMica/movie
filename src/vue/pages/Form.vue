@@ -179,7 +179,7 @@
              * Finds the current movie
              */
             movie () {
-                return this.movies.find(item => item.id === this.id)
+                return this.movies.find(item => item.id == this.id)
             },
 
             /**
@@ -278,6 +278,8 @@
             }
         },
         created () {
+            this.reset()
+
             if (this.exists) {
                 if (this.movie === undefined) {
                     return this.$router.push({ name: 'error' })
@@ -288,8 +290,6 @@
                 this.fetchAll(this.movie).then(
                     ({ data }) => this.results = data.Search
                 )
-            } else {
-                this.reset()
             }
         }
     }
