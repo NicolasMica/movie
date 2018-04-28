@@ -15,7 +15,7 @@
                         </h1>
                         <div class="mb-4 flex">
                             <!-- REVIEW -->
-                            <div ref="progress" class="relative z-0 h-14 w-14 mr-4"></div>
+                            <progress-circle :value="reviews" class="relative z-0 h-14 w-14 mr-4"></progress-circle>
                             <!-- EDIT -->
                             <router-link tag="button" :to="{ name: 'edit', params: { id: movie.id } }" class="h-14 w-14 inline-block rounded-full border border-white hover:border-brand-secondary text-white hover:text-brand-secondary mr-4">
                                 <i class="far fa-edit"></i>
@@ -93,26 +93,16 @@
     import Progress from 'progressbar.js'
     import Modal from '../components/Modal.vue'
     import Review from '../components/Review.vue'
+    import ProgressCircle from '../components/ProgressCircle.vue'
 
     export default {
-        components: { Modal, Review },
+        components: { MovieItem, Modal, Review, ProgressCircle },
         props: ['id'],
         data () {
             return {
-                progress: null,
                 destroyModal: false,
                 reviewModal: false,
                 stars: 0
-            }
-        },
-        watch: {
-            /**
-             * Updates the review progress circle
-             */
-            reviews (value) {
-                if (this.progress === null) return
-                this.progress.animate(value / 5)
-                this.progress.setText(value + '/5')
             }
         },
         computed: {
@@ -187,22 +177,6 @@
                 this.reviewModal = false
                 this.stars = 0
             }
-        },
-        mounted () {
-            this.progress = new Progress.Circle(this.$refs.progress, {
-                strokeWidth: 8,
-                easing: 'easeInOut',
-                duration: 1400,
-                color: '#00d573',
-                trailColor: '#004653',
-                trailWidth: 8,
-                svgStyle: null,
-                text: {
-                    value: this.reviews + '/5'
-                }
-            })
-            this.progress.path.style.strokeLinecap = 'round'
-            this.progress.animate(this.reviews / 5)
         }
     }
 </script>
