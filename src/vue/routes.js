@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import Index from './pages/Index.vue'
-import Show from './pages/Show.vue'
-import Form from './pages/Form.vue'
-import Error from './pages/Error.vue'
+const Index = () => import('./pages/Index.vue')
+const Show = () => import('./pages/Show.vue')
+const Form = () => import('./pages/Form.vue')
+const Error = () => import('./pages/Error.vue')
 
 export default new VueRouter({
     mode: 'history',
