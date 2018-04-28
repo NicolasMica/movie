@@ -95,7 +95,7 @@ api.route('/movies/:id')
     .put((req, res) => {
         let movie = { ...req.body }
         state.movies = state.movies.map(item => {
-            if (item.id = req.movie.id) {
+            if (item.id == req.movie.id) {
                 movie = { ...item, ...movie}
                 return movie
             } else {
