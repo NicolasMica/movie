@@ -54,9 +54,9 @@
         },
         watch: {
             movies (value) {
-                if (this.fuse === null && value.length > 0) {
-                    this.setup()
-                }
+                if (value.length === 0) return
+
+                this.setup()
             }
         },
         computed: {
@@ -109,6 +109,8 @@
                     keys.push('director.' + key)
                 }
 
+                delete movie['image']
+                delete movie['reviews']
                 delete movie['director']
                 keys = [ ...Object.keys(movie), ...keys ]
 
