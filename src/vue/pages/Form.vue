@@ -32,7 +32,7 @@
                                     <!-- IMAGE -->
                                     <label for="form-image" class="py-2 font-semibold text-lg">Affiche</label>
                                     <div class="w-full min-h-88 mb-4 bg-grey-darkest">
-                                        <img :src="form.image" class="block w-full h-full">
+                                        <img :src="form.image" class="block w-full h-full" v-show="form.image">
                                     </div>
                                    <div class="flex">
                                        <input type="text" name="image" id="form-image" class="input flex-1 mr-4" placeholder="Lien: http://..." v-model="form.image">
@@ -72,12 +72,12 @@
                                 <!-- BIRTHDATE -->
                                 <div class="w-1/2 p-4 flex flex-col">
                                     <label for="form-birthdate" class="py-2 font-semibold text-lg">Date de naissance</label>
-                                    <input type="date" name="date" id="form-birthdate" class="input" v-model="form.director.birthdate">
+                                    <input type="date" name="birthdate" id="form-birthdate" class="input" v-model="form.director.birthdate">
                                 </div>
                                 <!-- NATIONALITY -->
                                 <div class="w-1/2 p-4 flex flex-col">
                                     <label for="form-nationality" class="py-2 font-semibold text-lg">Nationalité</label>
-                                    <input type="text" name="image" id="form-nationality" class="input" v-model="form.director.nationality">
+                                    <input type="text" name="nationality" id="form-nationality" class="input" v-model="form.director.nationality">
                                 </div>
                             </div>
                             <!-- BUTTONS -->
@@ -156,6 +156,12 @@
                     this.searchTimeout = setTimeout(
                         () => this.registerSearchTimeout(value), timeoutDelay
                     )
+                }
+            },
+
+            id (value) {
+                if (value === undefined) {
+                    this.reset()
                 }
             }
         },
