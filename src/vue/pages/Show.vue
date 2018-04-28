@@ -1,7 +1,7 @@
 <template>
     <main>
         <section class="bg-brand-dark text-white">
-            <div class="container mx-auto py-8">
+            <div class="container mx-auto p-8">
                 <div class="flex flex-wrap items-center justify-center md:-m-4">
                     <div class="p-4 w-full md:w-1/2 lg:w-1/4 flex justify-center">
                         <div class="overflow-hidden rounded-lg w-full">
@@ -43,6 +43,19 @@
                                 <p class="text-white-80">{{ movie.categories.join(', ') }}</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FEATURED MOVIES -->
+        <section v-show="featured.length">
+            <div class="container mx-auto p-8">
+                <div class="flex justify-between mb-8">
+                    <h3 class="text-2xl font-semibold">Films susceptible de vous intéresser</h3>
+                </div>
+                <div class="flex flex-wrap md:-m-4">
+                    <div class="w-full md:w-1/2 p-2 md:p-4" v-for="movie in featured" :key="movie.id">
+                        <movie-item :movie="movie"/>
                     </div>
                 </div>
             </div>
@@ -90,7 +103,7 @@
 <script>
     import Vuex from 'vuex'
     import moment from 'moment'
-    import Progress from 'progressbar.js'
+    import MovieItem from '../components/MovieItem.vue'
     import Modal from '../components/Modal.vue'
     import Review from '../components/Review.vue'
     import ProgressCircle from '../components/ProgressCircle.vue'
@@ -114,6 +127,24 @@
              */
             movie () {
                 return this.movies.find(movie => movie.id == this.id)
+            },
+
+            /**
+             * List of movies matching one of the current one categorie's
+             * @returns [{movie}*] - Movie object collection
+             */
+            featured () {
+                return this.movies.filter(movie => {
+                    if (this.movie.id === movie.id) return false
+
+                    for (let category of movie.categories) {
+                        if (this.movie.categories.includes(category)) {
+                            return true
+                        }
+                    }
+
+                    return false
+                })
             },
 
             /**
