@@ -24,7 +24,7 @@ if (mix.inProduction()) {
         .purgeCss({
             globs: [
                 path.join(__dirname, 'dist/index.html'),
-                path.join(__dirname, 'src/vue/**.*')
+                path.join(__dirname, 'src/**/**.*')
             ]
         })
 } else {
