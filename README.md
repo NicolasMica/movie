@@ -1,4 +1,4 @@
-#Open Movie
+# Open Movie
 A small Tailwind and Vue demo project
 
 ### Getting started
