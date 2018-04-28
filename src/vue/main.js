@@ -1,6 +1,9 @@
 import Vue from 'vue'
+import PortalVue from 'portal-vue'
 import router from './routes'
 import store from './store'
+
+Vue.use(PortalVue)
 
 import App from './App.vue'
 
