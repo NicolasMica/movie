@@ -97,6 +97,18 @@ a {
         }
     }
 
+    &.is-danger, &.is-error, &.is-red {
+        @apply .bg-red .text-red-lightest;
+
+        &:hover {
+            @apply .bg-red-dark .text-white;
+        }
+
+        &:active {
+            @apply .bg-red-darker;
+        }
+    }
+
     &.is-info, &.is-blue {
         @apply .bg-blue .text-white-80;
 
