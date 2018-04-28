@@ -83,6 +83,7 @@
                 </div>
             </div>
         </section>
+        <portal-target name="modal"></portal-target>
     </div>
 </template>
 

@@ -21,13 +21,9 @@
                                 <i class="far fa-edit"></i>
                             </router-link>
                             <!-- DELETE -->
-                            <button class="h-14 w-14 rounded-full border border-white hover:border-red-light text-white hover:text-red-light mr-4" @click="destroyModal = true">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
+                            <delete-button :movie="movie"></delete-button>
                             <!-- REVIEW -->
-                            <button class="h-14 w-14 rounded-full border border-white hover:border-yellow-dark text-white hover:text-yellow-dark" @click="reviewModal = true">
-                                <i class="far fa-star"></i>
-                            </button>
+                            <review-button :movie="movie"></review-button>
                         </div>
                         <div class="mb-4">
                             <h3 class="font-normal text-xl mb-2">Synopsis</h3>
@@ -60,43 +56,6 @@
                 </div>
             </div>
         </section>
-        <!-- DELETE MODAL -->
-        <modal :closeable="false" @close="closeDestroy" v-show="destroyModal">
-            <div class="p-6 rounded bg-white">
-                <p class="mb-4 text-lg tracking-wide text-semi-bold uppercase text-grey-dark">Confirmation</p>
-                <p class="mb-4 text-grey-darkest">Êtes vous sûr de vouloir supprimer le film <b>{{ movie.name }}</b> ?</p>
-                <div class="flex justify-end">
-                    <button class="px-4 py-2 mr-4 rounded bg-grey-lightest text-grey-darker hover:bg-grey-lighter active:bg-grey-light" @click="closeDestroy">
-                        Annuler
-                    </button>
-                    <button class="px-4 py-2 rounded bg-red hover:bg-red-dark active:bg-red-darker text-white-80" @click="submitDestroy">
-                        <span class="mr-2">
-                            <i class="fas fa-trash-alt"></i>
-                        </span>
-                        <span>Confirmer</span>
-                    </button>
-                </div>
-            </div>
-        </modal>
-        <!-- REVIEW MODAL -->
-        <modal :dismissable="true" @close="closeReview" v-show="reviewModal">
-            <div class="p-6 rounded bg-white">
-                <p class="mb-4 text-lg tracking-wide text-semi-bold uppercase text-grey-dark">Notation</p>
-                <p class="text-grey-darker text-sm">Choisissez la note en cliquant sur l'une des étoiles</p>
-                <review v-model="stars" class="mb-4"/>
-                <div class="flex justify-end">
-                    <button class="button is-secondary mr-4" @click="closeReview">
-                        Annuler
-                    </button>
-                    <button class="button is-success" @click="submitReview">
-                        <span class="mr-2">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <span>Confirmer</span>
-                    </button>
-                </div>
-            </div>
-        </modal>
     </main>
 </template>
 
@@ -104,20 +63,13 @@
     import Vuex from 'vuex'
     import moment from 'moment'
     import MovieItem from '../components/MovieItem.vue'
-    import Modal from '../components/Modal.vue'
-    import Review from '../components/Review.vue'
+    import DeleteButton from '../components/DeleteButton.vue'
+    import ReviewButton from '../components/ReviewButton.vue'
     import ProgressCircle from '../components/ProgressCircle.vue'
 
     export default {
-        components: { MovieItem, Modal, Review, ProgressCircle },
+        components: { MovieItem, ProgressCircle, ReviewButton, DeleteButton },
         props: ['id'],
-        data () {
-            return {
-                destroyModal: false,
-                reviewModal: false,
-                stars: 0
-            }
-        },
         computed: {
             ...Vuex.mapGetters(['movies']),
 
@@ -164,49 +116,6 @@
                 let sum = this.movie.reviews.reduce((a, b) => a + b, 0)
 
                 return Math.round(sum / this.movie.reviews.length)
-            }
-        },
-        methods: {
-            ...Vuex.mapActions(['update', 'destroy']),
-
-            /**
-             * Deletes the movie
-             * @param event - DOM event
-             */
-            submitDestroy (event = null) {
-                this.destroy(this.movie)
-                this.$router.push({ name: 'index' })
-            },
-
-            /**
-             * Closes the destroy modal
-             * @param event - DOM event
-             */
-            closeDestroy (event = null) {
-                this.destroyModal = false
-            },
-
-            /**
-             * Submits the movie review
-             * @param event - DOM event
-             */
-            submitReview (event = null) {
-                this.update({
-                    ...this.movie,
-                    reviews: [
-                        ...this.movie.reviews,
-                        this.stars
-                    ]
-                }).then(this.closeReview)
-            },
-
-            /**
-             * Closes the review modal
-             * @param event - DOM event
-             */
-            closeReview (event = null) {
-                this.reviewModal = false
-                this.stars = 0
             }
         }
     }
