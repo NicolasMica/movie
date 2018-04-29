@@ -62,8 +62,8 @@
              * @returns {number}
              */
             reviews () {
-                if (this.movie === undefined || this.movie.reviews.length === 0) return 0
-                let sum = this.movie.reviews.reduce((a, b) => a + b, 0)
+                if (this.movie.reviews.length === 0) return 0
+                let sum = this.movie.reviews.reduce((a, b) => parseInt(a) + parseInt(b), 0)
 
                 return Math.round(sum / this.movie.reviews.length)
             }
