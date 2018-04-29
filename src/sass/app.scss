@@ -73,14 +73,22 @@ a {
 .button {
     @apply .px-4 .py-2 .rounded .font-semibold .cursor-pointer;
 
-    &.is-secondary {
+    &[disabled] {
+        @apply .cursor-not-allowed;
+    }
+
+    &.is-secondary, &.is-grey {
         @apply .bg-grey-lightest .text-grey-darker;
 
-        &:hover {
+        &[disabled] {
             @apply .bg-grey-lighter;
         }
 
-        &:active, &.is-active {
+        &:hover:not([disabled]) {
+            @apply .bg-grey-lighter;
+        }
+
+        &:active:not([disabled]), &.is-active:not([disabled]) {
             @apply .bg-grey-light;
         }
     }
@@ -88,11 +96,15 @@ a {
     &.is-success, &.is-green {
         @apply .bg-green .text-white-80;
 
-        &:hover {
+        &[disabled] {
+            @apply .bg-green-light;
+        }
+
+        &:hover:not([disabled]) {
             @apply .bg-green-dark .text-white;
         }
 
-        &:active, &.is-active {
+        &:active:not([disabled]), &.is-active:not([disabled]) {
             @apply .bg-green-darker;
         }
     }
@@ -100,23 +112,31 @@ a {
     &.is-danger, &.is-error, &.is-red {
         @apply .bg-red .text-red-lightest;
 
-        &:hover {
+        &[disabled] {
+            @apply .bg-red-light;
+        }
+
+        &:hover:not([disabled]) {
             @apply .bg-red-dark .text-white;
         }
 
-        &:active {
+        &:active:not([disabled]), &.is-active:not([disabled]) {
             @apply .bg-red-darker;
         }
     }
 
     &.is-info, &.is-blue {
-        @apply .bg-blue .text-white-80;
+        @apply .bg-blue .text-blue-lightest;
 
-        &:hover {
+        &[disabled] {
+            @apply .bg-blue-light;
+        }
+
+        &:hover:not([disabled]) {
             @apply .bg-blue-dark .text-white;
         }
 
-        &:active, &.is-active {
+        &:active:not([disabled]), &.is-active:not([disabled]) {
             @apply .bg-blue-darker;
         }
     }
