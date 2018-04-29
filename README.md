@@ -6,6 +6,15 @@ Do it the quick way by running this single command and browse to [http://localho
 ```shell
 npm run all
 ```
+
+You may need to update the [API key](http://www.omdbapi.com/apikey.aspx):
+```javascript
+// dist/index.html
+window.App = {
+    api_key: 'YOUR_API_KEY'
+}
+```
+
 Or follow those steps:
 
 - Install NPM dependencies
