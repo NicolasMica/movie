@@ -144,7 +144,9 @@ api.route('/movies/:id')
 
         delete movie['file']
 
-        movie['image'] = handleUpload(req)
+        if (movie.image !== req.movie.image) {
+            movie['image'] = handleUpload(req)
+        }
 
         req.movie = { ...req.movie, ...movie}
         state.movies = state.movies.filter(item => item.id != req.movie.id)
