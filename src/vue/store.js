@@ -164,7 +164,7 @@ const getters = {
      * @param state - Store state
      * @returns {*} - Movie object collection
      */
-    movies: state => state.movies
+    movies: state => state.movies.slice().sort((a, b) => a.id - b.id)
 }
 
 const store = new Vuex.Store({
