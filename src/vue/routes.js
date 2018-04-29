@@ -21,7 +21,7 @@ export default new VueRouter({
         },
         {
             name: 'create',
-            path: '/movies/create',
+            path: '/movie/create',
             component: Form,
             meta: {
                 name: "Ajouter un film"
@@ -29,7 +29,7 @@ export default new VueRouter({
         },
         {
             name: 'show',
-            path: '/movies/:id',
+            path: '/movie/:id',
             component: Show,
             props: true,
             meta: {
@@ -38,7 +38,7 @@ export default new VueRouter({
         },
         {
             name: 'edit',
-            path: '/movies/:id/edit',
+            path: '/movie/:id/edit',
             component: Form,
             props: true,
             meta: {
