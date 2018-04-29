@@ -183,6 +183,15 @@
             },
 
             /**
+             * Validate method shortcut
+             */
+            isValid () {
+                return this.validate(
+                    this.form
+                )
+            },
+
+            /**
              * Determines the previous route
              */
             previousRoute () {
@@ -197,10 +206,33 @@
             ...Vuex.mapActions(['store', 'update', 'fetchAll', 'fetch']),
 
             /**
+             * Determines whether the given data is valid or not
+             * @param {data} - Form data to validate
+             * @returns boolean
+             */
+            validate (data) {
+                let nullable = ['birthdate', 'nationality', 'file', 'image']
+
+                for (let field in data) {
+                    if (nullable.includes(field)) continue
+
+                    if (typeof data[field] === "object" && !this.validate(data[field])) {
+                        return false
+                    } else if (data[field] === null || data[field] === '') {
+                        return false
+                    }
+                }
+
+                return true
+            },
+
+            /**
              * Submit the form
              * @param event - DOM event
              */
             submit (event = null) {
+                if (!this.isValid) return false
+
                 let req = this.exists ? this.update(this.form) : this.store(this.form)
 
                 req.then((movie) => {
