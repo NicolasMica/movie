@@ -1,7 +1,8 @@
+const fs = require('fs')
+const http = require('http')
 const express = require('express')
 const multer  = require('multer')
 const api = express.Router({})
-const upload = multer({ dest: 'dist/uploads/' }).single('file')
 
 // Faking default dataset
 const state = {
@@ -60,19 +61,65 @@ const state = {
 // Faking autoincrement
 let increment = 4
 
+// File upload
+fs.readdirSync('dist/uploads').forEach(file => fs.unlinkSync(`dist/uploads/${file}`))
+const upload = multer({
+    storage: multer.diskStorage({
+        destination (req, file, cb) {
+            cb(null, 'dist/uploads/')
+        },
+
+        filename (req, file, cb) {
+            let id = req.movie ? req.movie.id : increment
+            let filename = `${id}.${file.originalname.split('.').pop()}`
+            cb(null, filename)
+        }
+    })
+}).single('file')
+
+const handleUpload = (req) => {
+    if (req.file) return req.file.path.replace('dist', '')
+
+    let id = req.movie ? req.movie.id : increment
+    let path = req.body.image.replace(/^http(s)?/, 'http')
+    let extension = path.split('.').pop()
+    let destination = `dist/uploads/${id}.${extension}`
+    let file = fs.createWriteStream(destination)
+
+    http.get(path, (res) => {
+        let stream = res.pipe(file)
+
+        stream.on('finish', () => {
+            let movie = state.movies.find(item => item.id == id)
+            if (movie) {
+                state.movies = state.movies.filter(item => item.id != movie.id)
+                state.movies.push({ ...movie, image: destination.replace('dist', '') })
+            }
+        })
+
+        stream.on('error', console.error)
+    })
+
+    return req.body.image
+}
+
 api.route('/movies')
     // Index action
     .get((req, res) => {
         res.json(state.movies)
     })
     // Store action
-    .post((req, res) => {
+    .post(upload, async(req, res) => {
         let movie = {
             reviews: [],
             ...req.body,
-            id: increment++ }
-        // image:
+            id: increment }
+
+        delete movie['file']
+
         state.movies.push(movie)
+        movie['image'] = handleUpload(req)
+        increment++
 
         res.json(movie)
     })
@@ -92,18 +139,18 @@ api.route('/movies/:id')
         res.json(req.movie)
     })
     // Update action
-    .put((req, res) => {
+    .put(upload, async(req, res) => {
         let movie = { ...req.body }
-        state.movies = state.movies.map(item => {
-            if (item.id == req.movie.id) {
-                movie = { ...item, ...movie}
-                return movie
-            } else {
-                return item
-            }
-        })
 
-        res.json(movie)
+        delete movie['file']
+
+        movie['image'] = handleUpload(req)
+
+        req.movie = { ...req.movie, ...movie}
+        state.movies = state.movies.filter(item => item.id != req.movie.id)
+        state.movies.push(req.movie)
+
+        res.json(req.movie)
     })
     // Destroy action
     .delete((req, res) => {
