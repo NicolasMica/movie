@@ -5,8 +5,46 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+const objectToFormData = (obj, form, namespace) => {
+
+    var fd = form || new FormData();
+    var formKey;
+
+    for(var property in obj) {
+        if(obj.hasOwnProperty(property)) {
+
+            if(namespace) {
+                formKey = namespace + '[' + property + ']';
+            } else {
+                formKey = property;
+            }
+
+            // if the property is an object, but not a File,
+            // use recursivity.
+            if(typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+
+                objectToFormData(obj[property], fd, property);
+
+            } else {
+
+                // if it's a string or a File object
+                fd.append(formKey, obj[property]);
+            }
+
+        }
+    }
+
+    return fd;
+
+}
+
 window.axios = axios.create({
-    baseURL: window.location.origin + '/api/movies'
+    baseURL: window.location.origin + '/api/movies',
+    transformRequest: [function (data, headers) {
+        headers['Content-Type'] = 'multipart/form-data'
+
+        return objectToFormData(data)
+    }]
 })
 
 const state = {
@@ -48,7 +86,7 @@ const mutations = {
      * @param state - Store state
      * @param movie - Movie object
      */
-    UPDATE: (state, movie) => state.movies = state.movies.map(item => item.id === movie.id ? movie : item),
+    UPDATE: (state, movie) => state.movies = state.movies.map(item => item.id == movie.id ? movie : item),
 
     /**
      * Destroy a given movie
