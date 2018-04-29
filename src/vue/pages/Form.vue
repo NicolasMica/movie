@@ -36,13 +36,13 @@
                                     </div>
                                    <div class="flex">
                                        <input type="text" name="image" id="form-image" class="input flex-1 mr-4" placeholder="Lien: http://..." v-model="form.image">
-                                       <!--<input type="file" name="file" id="form-file" class="hidden" @change="upload">-->
-                                       <!--<label for="form-file" class="py-3 button is-info cursor-pointer">
+                                       <input type="file" accept="image/*" name="file" id="form-file" class="hidden" @change="handleFile">
+                                       <label for="form-file" class="py-3 button is-info text-sm">
                                            <span>
                                                <i class="fas fa-upload"></i>
                                            </span>
                                            <span>Fichier</span>
-                                       </label>-->
+                                       </label>
                                    </div>
                                 </div>
                                 <div class="w-full md:w-3/5 p-4 flex flex-col">
@@ -83,7 +83,7 @@
                             <!-- BUTTONS -->
                             <div class="flex justify-between mt-4">
                                 <router-link :to="previousRoute" class="button text-grey-darker hover:text-grey-darkest">Annuler</router-link>
-                                <button type="submit" class="button is-success">
+                                <button type="submit" class="button is-success" :disabled="!isValid">
                                     <span>Sauvegarder</span>
                                     <span class="ml-2">
                                         <i class="fas fa-check"></i>
@@ -217,6 +217,15 @@
             },
 
             /**
+             * Handles file input change
+             * @param event - DOM event
+             */
+            handleFile (event = null) {
+                this.form.file = event.target.files[0]
+                this.form.image = URL.createObjectURL(this.form.file)
+            },
+
+            /**
              * Fetches & associate a film from the API with the form
              * @param imdbID - Film API unique identifier
              */
@@ -261,8 +270,9 @@
                         birthdate: null
                     },
                     synopsis: null,
+                    file: null,
                     image: null,
-                    categories: []
+                    categories: null
                 }
             },
 
