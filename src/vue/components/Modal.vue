@@ -1,5 +1,5 @@
 <template>
-    <div class="absolute pin flex justify-center items-center">
+    <div class="fixed pin flex justify-center items-center">
         <div class="absolute pin h-full w-full bg-black-80" @click="dismiss"></div>
         <div class="relative">
             <slot></slot>
